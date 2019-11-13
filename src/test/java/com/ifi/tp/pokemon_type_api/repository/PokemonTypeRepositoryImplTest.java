@@ -3,6 +3,8 @@ package com.ifi.tp.pokemon_type_api.repository;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class PokemonTypeRepositoryImplTest {
@@ -46,6 +48,26 @@ class PokemonTypeRepositoryImplTest {
         var pokemons = repository.findAllPokemonType();
         assertNotNull(pokemons);
         assertEquals(151, pokemons.size());
+    }
+
+    @Test
+    void findAllPokemonTypeByTypes_withDragon_shouldReturn3Dragon(){
+        var list = new ArrayList<String>();
+        list.add("dragon");
+        var pokemons = repository.findAllPokemonTypeByTypes(list);
+        assertNotNull(pokemons);
+        assertEquals(3, pokemons.size());
+    }
+
+    @Test
+    void findAllPokemonTypeByTypes_withDragonFlying_shouldReturn1Dragon(){
+        var list = new ArrayList<String>();
+        list.add("dragon");
+        list.add("flying");
+        var pokemons = repository.findAllPokemonTypeByTypes(list);
+        assertNotNull(pokemons);
+        assertEquals(1, pokemons.size());
+        assertEquals("dragonite", pokemons.get(0).getName());
     }
 
     @Test
