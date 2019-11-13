@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -52,6 +54,18 @@ class PokemonTypeControllerTest {
         controller.getAllPokemonTypes();
 
         verify(service).getAllPokemonTypes();
+    }
+
+    @Test
+    void getAllPokemonTypesWithTypes_shouldCallTheService(){
+        var service = mock(PokemonTypeService.class);
+        var controller = new PokemonTypeController(service);
+        var listTypes = new ArrayList<String>();
+        listTypes.add("electric");
+
+        controller.getAllPokemonTypesFromTypes("electric");
+
+        verify(service).getAllPokemonTypesWithTypes(listTypes);
     }
 
     @Test

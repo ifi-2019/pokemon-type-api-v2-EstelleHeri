@@ -5,6 +5,8 @@ import com.ifi.tp.pokemon_type_api.repository.PokemonTypeRepositoryImpl;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
+import java.util.ArrayList;
+
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.junit.jupiter.api.Assertions.*;
@@ -39,6 +41,18 @@ class PokemonTypeServiceImplTest {
         pokemonTypeService.getPokemonType("pikachu");
 
         verify(pokemonTypeRepository).findPokemonTypeByName("pikachu");
+    }
+
+    @Test
+    void pokemonTypeRepository_shouldBeCalled_whenFindByTypes(){
+        var pokemonTypeRepository = mock(PokemonTypeRepository.class);
+        var pokemonTypeService = new PokemonTypeServiceImpl(pokemonTypeRepository);
+        var listTypes = new ArrayList<String>();
+        listTypes.add("electric");
+
+        pokemonTypeService.getAllPokemonTypesWithTypes(listTypes);
+
+        verify(pokemonTypeRepository).findAllPokemonTypeByTypes(listTypes);
     }
 
     @Test
